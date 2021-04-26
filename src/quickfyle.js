@@ -23,14 +23,12 @@ var removeClass = function (el, className) {
 var createAddExpensebutton = function () {
     var button = document.createElement('button');
     button.innerText = 'Add Expense';
-
     return button;
 }
 
 var createModal = function () {
     var modal = document.createElement('div');
     modal.className = 'quickfyle-modal'
-
     modal.innerHTML = '<iframe class="quickfyle-modal-frame" src="/widget.html" frameborder="0"></iframe>'
     return modal;
 }
@@ -79,23 +77,52 @@ var createStyleSheet = function () {
     return style;
 }
 
-var addExpenseButton = createAddExpensebutton();
-var modal = createModal();
 var style = createStyleSheet();
 
-window.onload = function () {
-    var markerRef = document.getElementById('quickfyle');
-
-
-    markerRef.appendChild(addExpenseButton);
+function Quickfyle(element, config) {
+    var addExpenseButton = createAddExpensebutton();
+    var modal = createModal();
+    element.appendChild(addExpenseButton);
     document.body.appendChild(modal);
     document.body.appendChild(style);
-
-
+    var iframe = modal.getElementsByClassName('quickfyle-modal-frame')[0];
     addClass(modal, 'invisible');
     removeClass(modal, 'visible');
     addExpenseButton.addEventListener('click', function (event) {
         addClass(modal, 'visible');
         removeClass(modal, 'invisible');
     });
+    console.log('Connecting to iframe from parent');
+    connection = Penpal.connectToChild({
+        iframe: iframe,
+        methods: {
+            openModal: function () {
+                addClass(modal, 'visible');
+                removeClass(modal, 'invisible'); 
+            },
+            closeModal: function () {
+                addClass(modal, 'invisible');
+                removeClass(modal, 'visible'); 
+            }
+        }
+    });
+    return {
+        element: element,
+        modal: modal,
+        openModal: function () {
+            addClass(modal, 'visible');
+            removeClass(modal, 'invisible');
+        },
+        closeModal: function () {
+            addClass(modal, 'invisible');
+            removeClass(modal, 'visible');
+        },
+        getData: function (arg) {
+            return connection.promise.then(function (child) {
+              return child.getData(arg); 
+            });
+        }
+    };
 }
+
+window.Quickfyle = Quickfyle;
