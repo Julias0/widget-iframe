@@ -86,23 +86,32 @@ function Quickfyle(element, config) {
     document.body.appendChild(modal);
     document.body.appendChild(style);
     var iframe = modal.getElementsByClassName('quickfyle-modal-frame')[0];
-    addClass(modal, 'invisible');
-    removeClass(modal, 'visible');
-    addExpenseButton.addEventListener('click', function (event) {
+    var setInvisible = function () {
+        addClass(modal, 'invisible');
+        removeClass(modal, 'visible');
+    };
+
+    var setVisible = function (params) {
         addClass(modal, 'visible');
         removeClass(modal, 'invisible');
+    };
+
+    setInvisible(); 
+    addExpenseButton.addEventListener('click', function (event) {
+        setVisible();
     });
-    console.log('Connecting to iframe from parent');
+
     connection = Penpal.connectToChild({
         iframe: iframe,
         methods: {
             openModal: function () {
-                addClass(modal, 'visible');
-                removeClass(modal, 'invisible'); 
+                setVisible();
             },
             closeModal: function () {
-                addClass(modal, 'invisible');
-                removeClass(modal, 'visible'); 
+                setInvisible();
+            },
+            init: function () {
+               return config; 
             }
         }
     });
@@ -110,12 +119,10 @@ function Quickfyle(element, config) {
         element: element,
         modal: modal,
         openModal: function () {
-            addClass(modal, 'visible');
-            removeClass(modal, 'invisible');
+            setVisible();
         },
         closeModal: function () {
-            addClass(modal, 'invisible');
-            removeClass(modal, 'visible');
+            setInvisible();
         },
         getData: function (arg) {
             return connection.promise.then(function (child) {

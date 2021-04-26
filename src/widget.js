@@ -13,15 +13,17 @@ window.onload = function () {
         }
     });
 
-    connection.promise.then(parent => {
-        parent.openModal().then(function () {
-           console.log('Opened modal from inside the iframe'); 
-        });
 
-        setTimeout(()=> {
-            parent.closeModal().then(function () {
-                console.log('Closed modal from inside the iframe'); 
-            });
-        }, 3000);
+    var container = document.getElementsByClassName('container')[0]
+    connection.promise.then(function (parent) {
+       parent.init().then(function (config) {
+           container.style.backgroundColor = config && config.backgroundColor;
+       }) 
     })
+
+    document.getElementById('close-button').addEventListener('click', function (event) {
+       connection.promise.then(function (parent) {
+          parent.closeModal(); 
+       });
+    });
 }
