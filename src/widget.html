@@ -145,8 +145,9 @@
             display: flex;
             justify-content: flex-end;
         }
-        
-        html, body {
+
+        html,
+        body {
             height: 100%;
         }
 
@@ -160,10 +161,21 @@
         }
 
 
-        #primary, #secondary {
+        #primary,
+        #secondary {
             border-radius: 4px;
             border: 1px solid white;
             background-color: white;
+        }
+
+        .widget-modal {
+            position: fixed;
+            top: 40px;
+            left: 40px;
+            width: 200px;
+            background-color: #fff;
+            border: 1px solid black;
+            border-radius: 4px;
         }
     </style>
 </head>
@@ -270,11 +282,15 @@
         explicabo voluptates. Dolor sit totam nemo quas voluptatibus dolorem accusamus quaerat obcaecati iusto quidem,
         fugiat soluta, expedita inventore beatae saepe cumque nihil quod nam. Magni distinctio ullam quia, consectetur,
         nulla nam quae ratione eius a dolore, delectus earum veniam?
+
+        <div class="widget-modal">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Beatae magni ad impedit voluptates rem qui laudantium expedita suscipit tempora cumque officia dolor ea voluptas recusandae aperiam, molestiae velit aut a eligendi, blanditiis, illum nisi consequuntur modi. Harum ipsa minus quam nemo dolore magni ut nostrum iure! Aspernatur sapiente, porro, esse at iste aperiam magnam et ipsam iure, soluta reprehenderit sit? Minus, ratione cupiditate nemo molestiae odio, consectetur recusandae repellat voluptate repellendus maxime ea reprehenderit amet numquam dolorum tenetur id voluptatem in fuga aliquam. Dignissimos dicta itaque temporibus eveniet maiores quisquam nam. Neque blanditiis laborum eligendi ad repudiandae voluptas nihil saepe, esse, corrupti adipisci, tempora laudantium et sint soluta consectetur. Est minima fuga maiores officiis voluptas qui eligendi, atque nam aut maxime debitis ex repellat ad id in adipisci iusto possimus dignissimos ab a voluptatum dolorem, voluptatem, ipsam itaque? Quidem ducimus quas magni optio exercitationem voluptas neque, accusamus quam at culpa nam voluptates, libero, dolorum quos similique ullam porro est! Mollitia nostrum corporis laborum, autem dolorum voluptatum eum illo totam esse fuga ipsum, excepturi quia, amet placeat repudiandae eligendi. Et quis in nostrum, omnis velit id iure impedit distinctio officia illo eaque optio nesciunt eos ratione perspiciatis tenetur mollitia ipsum alias!
+        </div>
         <button id="primary">
             Primary
         </button>
         <button id="secondary">
-           Secondary
+            Secondary
         </button>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
     </div>
