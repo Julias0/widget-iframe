@@ -96,7 +96,7 @@ function Quickfyle(element, config) {
         removeClass(modal, 'invisible');
     };
 
-    setInvisible(); 
+    setInvisible();
     addExpenseButton.addEventListener('click', function (event) {
         setVisible();
     });
@@ -111,7 +111,19 @@ function Quickfyle(element, config) {
                 setInvisible();
             },
             init: function () {
-               return config; 
+                return {
+                    backgroundColor: config.backgroundColor
+                };
+            },
+            primaryClicked: function (args) {
+                if (config.onPrimaryClickedHook) {
+                    config.onPrimaryClickedHook(args);
+                }
+            },
+            secondaryClicked: function (args) {
+                if (config.onSecondaryClickedHook) {
+                    config.onSecondaryClickedHook(args);
+                }
             }
         }
     });
@@ -126,7 +138,7 @@ function Quickfyle(element, config) {
         },
         getData: function (arg) {
             return connection.promise.then(function (child) {
-              return child.getData(arg); 
+                return child.getData(arg);
             });
         }
     };
