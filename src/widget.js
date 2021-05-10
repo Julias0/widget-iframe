@@ -27,7 +27,24 @@ window.onload = function () {
         });
     });
 
+    var checkForToken = function (callback) {
+        var token = localStorage.getItem('token');  
+        if (token) {
+            console.log('We got a token!')
+            callback(token);
+        } else {
+            setTimeout(function () {
+               checkForToken(callback, 1000); 
+            });
+        }
+    }
+
     document.getElementById('primary').addEventListener('click', function (event) {
+        var authWindow = window.open('/auth.html');
+        checkForToken(function (token) {
+            console.log('you are officially logged in!' + token);
+            authWindow.close();
+        })
         connection.promise.then(function (parent) {
             parent.primaryClicked({
                 message: 'Primary was clicked from inside the widget!'
